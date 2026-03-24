@@ -38,7 +38,7 @@ A client can access their own Diador AI assistant at their personal subdomain �
 
 - **Repo:** `aionui-custom` — fork of [iOfficeAI/AionUi](https://github.com/iOfficeAI/AionUi) (Apache 2.0)
 - **Stack:** Electron 37, React 19, TypeScript 5.8, Bun, electron-vite, better-sqlite3
-- **WebUI mode:** `electron out/main/index.js --webui --remote --no-sandbox --disable-gpu --headless`
+- **WebUI mode:** `electron out/main/index.js --webui --remote` (app auto-sets Ozone headless flags; `--headless` causes auto-exit; `--no-sandbox` is automatic when running as root)
 - **Container runtime:** `debian:bookworm-slim` (glibc required — never Alpine)
 - **userData path:** `~/.config/AionUi/` on Linux (mount as named volume per client)
 - **Target EC2:** t3.xlarge (4 vCPU / 16 GB), Ubuntu 22.04, 30 GB root + 100 GB data EBS
