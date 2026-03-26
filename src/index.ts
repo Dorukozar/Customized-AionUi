@@ -198,11 +198,12 @@ protocol.registerSchemesAsPrivileged([
 // Global error handlers for main process
 // 捕获未处理的同步异常，防止显示 Electron 默认错误对话框
 // Catch uncaught synchronous exceptions to prevent Electron's default error dialog
-process.on('uncaughtException', (_error) => {
-  // 在生产环境中，可以将错误记录到文件或上报到错误追踪服务
-  // In production, errors can be logged to file or sent to error tracking service
+process.on('uncaughtException', (error) => {
+  // 在生产环境中，记录错误并退出进程以便 Docker 重启策略生效
+  // In production, log the error and exit so Docker's restart policy can recover
   if (process.env.NODE_ENV !== 'development') {
-    // TODO: Add error logging or reporting
+    console.error('[FATAL] uncaughtException:', error);
+    process.exit(1);
   }
 });
 
