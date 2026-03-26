@@ -1,0 +1,34 @@
+# Diador — multi-client Docker Compose template
+# Usage: docker compose --env-file clients/client1.env -p diador-client1 up -d
+# Docker Compose auto-prefixes volume/network names with the project name (-p),
+# so "data" becomes "diador-client1_data" and "net" becomes "diador-client1_net".
+
+services:
+  diador:
+    image: diador:latest
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${CLIENT_PORT}:25808"
+    volumes:
+      - data:/root/.config/AionUi
+    networks:
+      - net
+    # Chromium needs clone3 syscall — Docker's default seccomp profile blocks it
+    security_opt:
+      - seccomp:unconfined
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:25808/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+networks:
+  net:
+    driver: bridge
+
+volumes:
+  data:

@@ -1,0 +1,9 @@
+# Diador — certbot auto-renewal cron
+# Install: sudo cp deploy/tls/renew-cron /etc/cron.d/diador-certbot-renew
+#
+# Runs twice daily (2:00 AM and 2:00 PM) per Let's Encrypt best practices.
+# Do NOT run hourly — failed validations are rate-limited (5/hour/hostname).
+# --quiet suppresses output unless there's an error.
+# --post-hook reloads Nginx only if a cert was actually renewed.
+
+0 2,14 * * * root certbot renew --quiet --dns-route53-propagation-seconds 120 --post-hook "systemctl reload nginx"
