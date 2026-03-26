@@ -1,0 +1,23 @@
+# Diador — Phase 1 testing compose stack
+# Single service for validating Docker image build and WebUI operation
+
+services:
+  aionui:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:25808:25808"
+    volumes:
+      - aionui_data:/root/.config/AionUi
+    # Chromium needs clone3 syscall — Docker's default seccomp profile blocks it
+    security_opt:
+      - seccomp:unconfined
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:25808/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  aionui_data:

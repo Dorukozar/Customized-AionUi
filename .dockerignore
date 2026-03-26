@@ -1,0 +1,17 @@
+node_modules
+.git
+.gitignore
+dist
+out
+.planning
+tests
+coverage
+.vscode
+.idea
+*.md
+!README.md
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
