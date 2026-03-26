@@ -260,7 +260,7 @@ export function initFsBridge(): void {
           targetUrl,
           {
             headers: {
-              'User-Agent': 'AionUI-Preview',
+              'User-Agent': 'Diador-Preview',
               Referer: 'https://github.com/iOfficeAI/AionUi',
             },
           },

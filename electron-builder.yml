@@ -1,12 +1,12 @@
-appId: com.aionui.app
-productName: AionUi
-executableName: AionUi
-copyright: Copyright © 2024 AionUi
+appId: ai.diador.app
+productName: Diador
+executableName: Diador
+copyright: Copyright © 2024-2026 Diador
 
 protocols:
-  - name: AionUi Protocol
+  - name: Diador Protocol
     schemes:
-      - aionui
+      - diador
 
 asar:
   smartUnpack: true
@@ -162,17 +162,17 @@ linux:
   icon: resources/app.png
   artifactName: ${productName}-${version}-${os}-${arch}.${ext}
   category: Utility
-  maintainer: aionui
-  vendor: aionui
+  maintainer: diador
+  vendor: diador
   synopsis: ${description}
   description: ${description}
   desktop:
     entry:
-      Name: AionUi
+      Name: Diador
       Comment: ${description}
-      Icon: aionui
+      Icon: diador
       Categories: Office;Utility;
-      MimeType: x-scheme-handler/aionui;
+      MimeType: x-scheme-handler/diador;
 
 npmRebuild: false
 buildDependenciesFromSource: false
