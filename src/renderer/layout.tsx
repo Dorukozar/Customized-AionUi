@@ -398,7 +398,7 @@ const Layout: React.FC<{
                   </g>
                 </svg>
               </div>
-              <div className='flex-1 text-20px text-1 collapsed-hidden font-bold'>Diador</div>
+              <div className='flex-1 text-20px text-1 collapsed-hidden font-bold'>Diador Technology</div>
               {isMobile && !collapsed && (
                 <button
                   type='button'
