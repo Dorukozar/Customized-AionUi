@@ -6,16 +6,12 @@
 
 import { ipcBridge } from '@/common';
 import { ConfigStorage } from '@/common/storage';
-import { openExternalUrl } from '@/renderer/utils/platform';
 import { Message, Switch } from '@arco-design/web-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const SKILLS_MARKET_DETAILS_ZH = 'https://github.com/iOfficeAI/AionUi/discussions/1326';
-const SKILLS_MARKET_DETAILS_EN = 'https://github.com/iOfficeAI/AionUi/discussions/1325';
-
 const SkillsMarketBanner: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [enabled, setEnabled] = useState(false);
   const [loading, setLoading] = useState(false);
   const [initialized, setInitialized] = useState(false);
@@ -52,15 +48,6 @@ const SkillsMarketBanner: React.FC = () => {
     [loading]
   );
 
-  const handleOpenDetails = useCallback(async () => {
-    try {
-      const url = i18n.language.startsWith('zh') ? SKILLS_MARKET_DETAILS_ZH : SKILLS_MARKET_DETAILS_EN;
-      await openExternalUrl(url);
-    } catch (error) {
-      console.error('Failed to open Skills Market URL:', error);
-    }
-  }, [i18n.language]);
-
   if (!initialized) return null;
 
   return (
@@ -74,10 +61,7 @@ const SkillsMarketBanner: React.FC = () => {
           </div>
           {!enabled && (
             <div className='text-12px text-[var(--color-text-3)] mt-2px leading-tight'>
-              {t('conversation.welcome.skillsMarketDesc')}{' '}
-              <span className='text-[rgb(var(--primary-6))] cursor-pointer hover:underline' onClick={handleOpenDetails}>
-                {t('conversation.welcome.skillsMarketDetails')}
-              </span>
+              {t('conversation.welcome.skillsMarketDesc')}
             </div>
           )}
         </div>

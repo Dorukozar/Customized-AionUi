@@ -4,12 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Typography, Button, Switch } from '@arco-design/web-react';
+import { Divider, Typography, Button, Switch } from '@arco-design/web-react';
+import { Right } from '@icon-park/react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { useSettingsViewMode } from '../settingsViewContext';
-import { isElectronDesktop } from '@/renderer/utils/platform';
+import { isElectronDesktop, openExternalUrl } from '@/renderer/utils/platform';
 import packageJson from '../../../../../package.json';
 
 const AboutModalContent: React.FC = () => {
@@ -36,6 +37,32 @@ const AboutModalContent: React.FC = () => {
     window.dispatchEvent(new CustomEvent('aionui-open-update-modal', { detail: { source: 'about' } }));
   };
 
+  const openLink = async (url: string) => {
+    try {
+      await openExternalUrl(url);
+    } catch (error) {
+      console.log('Failed to open link:', error);
+    }
+  };
+
+  const linkItems = [
+    {
+      title: t('settings.officialWebsite'),
+      url: 'https://www.diador.com.tr',
+      icon: <Right theme='outline' size='16' />,
+    },
+    {
+      title: t('settings.linkedin'),
+      url: 'https://www.linkedin.com/company/diador-technology/',
+      icon: <Right theme='outline' size='16' />,
+    },
+    {
+      title: t('settings.contact'),
+      url: 'mailto:info@diador.com',
+      icon: <Right theme='outline' size='16' />,
+    },
+  ];
+
   return (
     <div className='flex flex-col h-full w-full'>
       {/* Content Area */}
@@ -56,6 +83,9 @@ const AboutModalContent: React.FC = () => {
                 v{packageJson.version}
               </span>
             </div>
+            <Typography.Text className='text-14px text-t-secondary mb-12px text-center'>
+              AI Automation & Intelligent Agents
+            </Typography.Text>
 
             {/* Check Update Section */}
             {isElectron && (
@@ -71,6 +101,27 @@ const AboutModalContent: React.FC = () => {
                 </div>
               </div>
             )}
+          </div>
+
+          {/* Divider */}
+          <Divider className='my-16px' />
+
+          {/* Links Section */}
+          <div className='flex flex-col gap-4px pt-8px'>
+            {linkItems.map((item, index) => (
+              <div
+                key={index}
+                className='flex items-center justify-between px-16px py-12px rd-8px hover:bg-fill-2 transition-all cursor-pointer group'
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  openLink(item.url).catch((error) => console.error('Failed to open link:', error));
+                }}
+              >
+                <Typography.Text className='text-14px text-t-primary'>{item.title}</Typography.Text>
+                <div className='text-t-secondary group-hover:text-t-primary transition-colors'>{item.icon}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
