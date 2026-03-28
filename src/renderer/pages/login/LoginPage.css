@@ -143,10 +143,15 @@ body.login-page-active {
   margin-bottom: 18px;
 }
 
-.login-page__logo svg,
-.login-page__logo img {
+.login-page__logo svg {
   width: 64px;
   height: 64px;
+  animation: login-pulse 3s infinite;
+}
+
+.login-page__logo img {
+  max-width: 240px;
+  height: auto;
   animation: login-pulse 3s infinite;
 }
 

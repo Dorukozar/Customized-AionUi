@@ -218,7 +218,9 @@ const LoginPage: React.FC = () => {
           <div className='login-page__logo'>
             <img src={loginLogo} alt={t('login.brand')} />
           </div>
-          <h1 className='login-page__title'>{t('login.brand')}</h1>
+          <h1 className='login-page__title' style={{ display: 'none' }}>
+            {t('login.brand')}
+          </h1>
           <p className='login-page__subtitle'>{t('login.subtitle')}</p>
         </div>
 
